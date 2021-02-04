@@ -1,0 +1,51 @@
+{
+    "source": "input/nyse_2012.csv",
+    "target": "output/csv/",
+    "metadata": {
+        "extension": "csv",
+        "header": true,
+        "sep": ",",
+        "encoding": "utf-8",
+        "inferSchema": true,
+        "columns": [
+                    {
+                      "name": "stock",
+                      "type": "string"
+                    },
+                    {
+                      "name": "transaction_date",
+                      "type": "date",
+                      "dateFormat": "dd-MMM-yyyy"
+                    },
+                    {
+                      "name": "open_price",
+                      "type": "string"
+                    },
+                    {
+                      "name": "close_price",
+                      "type": "string"
+                    },
+                    {
+                      "name": "max_price",
+                      "type": "string"
+                    },
+                    {
+                      "name": "min_price",
+                      "type": "string"
+                    },
+                    {
+                      "name": "variation",
+                      "type": "string"
+                    }
+                  ]
+    },
+    "parquet": {
+        "partition_by": "partition_date",
+        "number_of_files": 4,
+        "compression": "gzip",
+        "savemode":"overwrite"
+    },
+    "add_columns": {
+        "partition_date": 20200807
+    }
+}
