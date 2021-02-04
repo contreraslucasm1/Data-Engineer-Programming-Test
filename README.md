@@ -1,5 +1,4 @@
-# Data-Engineer-Programming-Test
-# Sr. Data Engineer Programming Test
+# Data Engineer Programming Test
 
 Suponga que se presenta la necesidad de ingestar archivos planos de distintos aplicativos origen, realizarles pequeñas transformaciones (mayoritariamente de formato) y guardarlo en formato Apache Parquet en HDFS.
 
