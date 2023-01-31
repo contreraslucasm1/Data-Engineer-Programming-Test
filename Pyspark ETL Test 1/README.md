@@ -1,29 +1,30 @@
 # Data Engineer Programming Test
 
-Suponga que se presenta la necesidad de ingestar archivos planos de distintos aplicativos origen, realizarles pequeñas transformaciones (mayoritariamente de formato) y guardarlo en formato Apache Parquet en HDFS.
+File Ingestion with Spark
+This project aims to ingest flat files from different source applications, perform small transformations (mainly format-related), and store the output in Apache Parquet format in HDFS.
 
-Dada esta necesidad se pide generar una solución utilizando Pyspark o Spark Scala que contemple las siguientes características:
+Usage
+You can use PySpark or Spark Scala to generate the solution.
 
-1.- Debe tener la flexibilidad suficiente para procesar archivos de texto ancho fijo y delimitados.
+Features
+The solution must have enough flexibility to process both fixed-width and delimited text files.
+The solution must take a configuration file as input, which contains the following parameters:
 
-2.- Como input debe tomar un archivo de configuración que contenga los siguientes parámetros:
+    a. Source file path of the file to be ingested.
+    b. Destination path where the file will be written.
+    c. Metadata required to process the raw file (e.g. delimiter, header, columns, column widths).
+    d. Metadata required to generate the parquet file (e.g. partitions, number of files, compression).
+    e. Allow the addition of columns to the data frame with predefined values.
 
-	a.- El path de origen del archivo a ser ingestado;
-	b.- El path destino donde se escribirá ese archivo;
-	c.- La metadata necesaria para procesar el archivo crudo (e.g. delimitador, header, columnas, anchos de columnas);
-	d.- La metadata necesaria para generar el archivo en parquet que crea necesarias (e.g. particiones, cantidad de archivos, compresión);
-	e.- Permitir el agregado de columnas al data frame con valores predefinidos.
+The solution must be able to run on any computer locally with as few dependencies as possible.
 
-Se solicita que lo desarrollado sea capaz de ser ejecutado en cualquier computadora de forma local, de ser posible, con la menor cantidad de dependencias.
+Test Sets
+Two files are provided for testing purposes.
 
-### Sets de prueba
-Se proveen dos archivos para realizar *pruebas*.
+nyse_2012.csv is a comma-delimited file with a header. The output parquet must be partitioned by an extra column called partition_date, the value of which is given by the parameter.
+nyse_2012_ts.csv is a fixed-width file without a header and with the following column lengths:
 
-nyse_2012.csv, delimitado por comas, con cabecera. El parquet de salida debe estar particionado por una columna extra, llamada partition_date y cuyo valor viene dado por parámetro.
-
-nyse_2012_ts.csv, de ancho fijo, sin cabecera y con las siguientes longitudes de columnas:
-
-|columna|tipo de dato|longitud|
+|column|data type|lenght|
 | ------------- | ------------- | ------------- |
 |stock|string|6|
 |transaction_date|timestamp|24|
@@ -33,21 +34,16 @@ nyse_2012_ts.csv, de ancho fijo, sin cabecera y con las siguientes longitudes de
 |min_price|float|7|
 |variation|float|7|
 
-El parquet de salida debe estar particionado por la columna stock.
+The output parquet must be partitioned by the stock column.
 
+Evaluation Criteria
+Consider:
 
-Pregunta:
-Qué peculiaridades tiene el modo de escritura Overwrite, en data frames particionados, para versiones de Spark previas a 2.3? Qué cambió a partir de dicha versión?
-
-### Criterios de evaluación
-Tener en cuenta:
-* Calidad del código desarrollado.
-* Mantenibilidad.
-* Claridad y facilidad de entendimiento.
-* Performance y escalabilidad.
-* Pragmatismo.
-
-(Los criterios de evaluación son guías para brindar mayor claridad al candidato en términos de cómo su trabajo será calificado, esta evaluación se centrará en dichos conceptos pero no necesariamente se limitará a los mismos)
+Quality of the code developed.
+Maintainability.
+Clarity and ease of understanding.
+Performance and scalability.
+Pragmatism.
 
 # Solution
 ETL script to process csv files and fixed-size column files with Spark.
