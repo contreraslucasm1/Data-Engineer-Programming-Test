@@ -1,0 +1,5 @@
+requests
+lxml
+neo4j
+apache-airflow-providers-neo4j
+beautifulsoup4
